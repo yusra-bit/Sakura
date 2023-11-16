@@ -1,12 +1,28 @@
- 
 // app.js
-const express = require('express')
 
-// Create Express app
-const app = express()
+const express = require('express');
+const connectDB = require('./config/db');
+const cors = require('cors');
 
-// A sample route
-app.get('/', (req, res) => res.send('<h1>🌸 Hello World 🌸</h1>'))
+// routes
+//const books = require('./routes/api/books');
 
-// Start the Express server
-app.listen(3000, () => console.log('Server running on port 3000 🌸!'))
+const app = express();
+
+// Connect Database
+connectDB();
+
+// cors
+app.use(cors({ origin: true, credentials: true }));
+
+// Init Middleware
+app.use(express.json({ extended: false }));
+
+app.get('/', (req, res) => res.send('Hello world!'));
+
+// use Routes
+//app.use('/api/books', books);
+
+const port = process.env.PORT || 8000;
+
+app.listen(port, () => console.log(`Server running on port ${port}`));
