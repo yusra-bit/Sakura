@@ -1,27 +1,45 @@
-// app.js
-
 const express = require('express');
-const connectDB = require('./config/db');
-const cors = require('cors');
-
-// routes
-//const books = require('./routes/api/books');
-
 const app = express();
 
-// Connect Database
-connectDB();
+const cors = require('cors');
+const mongoose = require('mongoose');
+const bcryptjs = require("bcryptjs");
 
-// cors
-app.use(cors({ origin: true, credentials: true }));
+const MONGO_URI = "mongodb://localhost:27017/blogDB";
 
-// Init Middleware
-app.use(express.json({ extended: false }));
+// middlerware
+app.use(cors());
+app.use(express.json());
+mongoose.connect(MONGO_URI);
+const db = mongoose.connection;
+db.on("error", (err) => {
+  console.error("Mongodb connnection error", err);
+});
+db.once("open", () => {
+  console.log("Mongodb is connected");
+});
 
-app.get('/', (req, res) => res.send('Hello world!'));
-
-// use Routes
-//app.use('/api/books', books);
+const userSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    password: String,
+  });
+  const User = mongoose.model("User", userSchema);
+  app.post("/register", async (req, res) => {
+    try {
+      const hasspassword = await bcryptjs.hashSync(req.body.password, 10);
+      const newUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: hasspassword,
+      });
+      const savedUser = await newUser.save();
+      res.status(201).json(savedUser);
+    } catch (error) {
+      console.error("Error druing registration ", error);
+      res.status(500).json({ error: "inter server error" });
+    }
+  });
 
 const port = process.env.PORT || 8000;
 

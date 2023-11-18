@@ -22,10 +22,10 @@ export default function Login() {
             </label>
           
             <button className="button-39">Login</button>
-            <center><p>Already have an account <b> <Link to="/" >Register</Link></b> </p></center>
 
             </form>
-           
+                       <center><p>Already have an account <b> <Link to="/register" >Register</Link></b> </p></center>
+
             </div>
          
         

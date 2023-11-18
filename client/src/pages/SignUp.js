@@ -1,42 +1,33 @@
 import '../index.css'
 
-import React, { useState, useNavigate } from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const SignUp = (props) => {
+const SignUp = () => {
     // Define the state with useState hook
-    //const navigate = useNavigate();
-    const [user, setUser] = useState({
-        uname: '',
-        email: '',
-        password: '',
-      //  created_at:'',
-    });
+  const [value, setValue] = useState({
+    name:'',
+    email:'',
+    password:''
+  })
+      
 
-    const onChange = (e) => {
-        setUser({...user, [e.target.name]: e.target.value});
-    };
-
-    const onSubmit = (e) => {
+  const handleChange = (e) => {
+    setValue({...value,[e.target.name]:e.target.value});
+  };
+  
+    const handleSubmit = async (e) => {
         e.preventDefault();
+    const register = await axios.post('http://localhost:8000/register', value);
 
-        axios
-        .post('http://localhost:8000/api/users', user)
-        .then((res) => {
-            setUser({
-                uname: '',
-                email: '',
-                password: '',
-               // created_at:'',
-            });
-
-            //Push to /
-           // navigate('/');
-        })
-        .catch((err) => {
-            console.log('Error in Registration!');
-        });
+       console.log(register);
+       setValue({
+        name: "",
+        email: "",
+        password: "",
+      });
+      alert("Acount created");
     };
 
     return (
@@ -47,30 +38,30 @@ const SignUp = (props) => {
             <div className="container" >
             <h4>Register Page</h4> 
             <br/>
-              <form noValidate onSubmit={onSubmit}>
+              <form  onSubmit={handleSubmit}>
             <label>
                 Name
                 <input 
                 type="text" 
-                name="uname"
-                value={user.uname}
-                onChange={onChange} />
+                name="name"
+                onChange={handleChange}
+                value={value.name}/>
             </label>
             <label>
             Email
                 <input 
                 type="text" 
                 name="email"
-                value={user.email}
-                onChange={onChange} />
+                onChange={handleChange}
+                value={value.email}/>
             </label>
             <label>
             Password
                 <input 
                 type="text" 
                 name="password"
-                value={user.password}
-                onChange={onChange} />
+                onChange={handleChange}
+                value={value.password} />
             </label>
             <input type='submit' className="button-39" />
             <br />
