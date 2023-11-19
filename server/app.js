@@ -27,11 +27,11 @@ const userSchema = new mongoose.Schema({
   const User = mongoose.model("User", userSchema);
   app.post("/register", async (req, res) => {
     try {
-      const hasspassword = await bcryptjs.hashSync(req.body.password, 10);
+     // const hasspassword = await bcryptjs.hashSync(req.body.password, 10);
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
-        password: hasspassword,
+        password: req.body.password,
       });
       const savedUser = await newUser.save();
       res.status(201).json(savedUser);
@@ -41,6 +41,18 @@ const userSchema = new mongoose.Schema({
     }
   });
 
+app.post('/login', (req,res) => {
+  const {email,password} = req.body;
+  User.findOne({email:email})
+  .then(user => {
+    if(user) {
+      res.redirect('http://localhost:3000/welcome');
+       
+    } else {
+      res.json("No record existed!")
+    }
+  })
+})
 const port = process.env.PORT || 8000;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));

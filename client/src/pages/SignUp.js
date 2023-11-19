@@ -1,11 +1,14 @@
 import '../index.css'
 
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import  { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const SignUp = () => {
+
+const SignUp = (props) => {
     // Define the state with useState hook
+   // const navigate = useNavigate();
+
   const [value, setValue] = useState({
     name:'',
     email:'',
@@ -27,6 +30,8 @@ const SignUp = () => {
         email: "",
         password: "",
       });
+//Push to /
+//navigate('/login');
       alert("Acount created");
     };
 
@@ -66,7 +71,7 @@ const SignUp = () => {
             <input type='submit' className="button-39" />
             <br />
             <br />
-          <center><p>You've an account? <b> <Link to="/login" >Login</Link></b> </p></center>
+          <center><p>You've an account? <b> <Link to="/login"> Login</Link></b> </p></center>
           
             </form>
 

@@ -1,0 +1,14 @@
+import {Link } from 'react-router-dom';
+export default function Home() {
+  return (
+
+    <center><h2>Welcome to Sakura Blog</h2>
+    <Link to={"/register"} >Register</Link>
+    
+    </center>
+    
+
+    
+  );
+}
+
