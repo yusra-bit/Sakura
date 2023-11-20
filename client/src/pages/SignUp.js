@@ -1,4 +1,3 @@
-import '../index.css'
 
 import React, { useState } from "react";
 import  { Link } from 'react-router-dom';
@@ -50,7 +49,8 @@ const SignUp = (props) => {
                 type="text" 
                 name="name"
                 onChange={handleChange}
-                value={value.name}/>
+                value={value.name}
+                required/>
             </label>
             <label>
             Email
@@ -58,7 +58,8 @@ const SignUp = (props) => {
                 type="text" 
                 name="email"
                 onChange={handleChange}
-                value={value.email}/>
+                value={value.email} 
+                required/>
             </label>
             <label>
             Password
@@ -66,7 +67,8 @@ const SignUp = (props) => {
                 type="text" 
                 name="password"
                 onChange={handleChange}
-                value={value.password} />
+                value={value.password}
+                required />
             </label>
             <input type='submit' className="button-39" />
             <br />

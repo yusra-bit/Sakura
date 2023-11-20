@@ -79,3 +79,40 @@ border-style: solid;
 .button-39:focus-visible {
   box-shadow: none;
 }
+
+
+.navbar{
+  box-shadow: rgba(78, 78, 86, 0.2) 0px 7px 29px 0px;
+
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+
+}
+.links{
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+}
+
+ul li a {
+  padding-right: 20px;
+    text-decoration: none;
+    color: black;
+
+}
+
+.content{
+  margin:30px;
+  width:min-content;
+  box-shadow: rgba(78, 78, 86, 0.1) 2px 7px 29px 0px;
+  padding: 20px;
+  background-color: white;
+  
+}
+.imgFile{
+  height: 20px;
+  width: max-content;
+  border-radius: 0;
+
+}
