@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
       const savedUser = await newUser.save();
       res.status(201).json(savedUser);
     } catch (error) {
-      console.error("Error druing registration ", error);
+      console.error("Error during registration ", error);
       res.status(500).json({ error: "inter server error" });
     }
   });
@@ -53,6 +53,16 @@ app.post('/login', (req,res) => {
     }
   })
 })
+
+
+// POST SAVING //
+const articleSchema = new mongoose.Schema({
+  img: String,
+  contnet: String,
+  tags: String,
+});
+const Article = mongoose.model("Article", userSchema);
+
 const port = process.env.PORT || 8000;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));

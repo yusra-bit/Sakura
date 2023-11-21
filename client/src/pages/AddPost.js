@@ -6,8 +6,14 @@ export default function AddPost() {
         <Navbar />
           <div className="content">
         <h2>📝 Add Post 📝</h2>
-      <input type="file" className="imgFile" name="article_cover" />
-      <textarea name="postTxt"></textarea>
+        <br/>
+       <input class="custom-file-input" type="file" />
+
+<br/>
+<br />
+      <textarea name="postTxt" className="text" placeholder=" Write  the post here" height={30}></textarea>
+      <button className="button-39" >Post</button>
+
       </div>
       </center>
       
