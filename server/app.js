@@ -1,5 +1,13 @@
 const express = require('express');
-const app = express();
+const session = require('express-session')
+//const app = express();
+
+/*app.use(session({
+  secret: 'secrets',
+  cookie: {maxAge: 30000},
+  saveUninitialized: false
+}));
+*/
 
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -41,6 +49,7 @@ const userSchema = new mongoose.Schema({
     }
   });
 
+
 app.post('/login', (req,res) => {
   const {email,password} = req.body;
   User.findOne({email:email})
@@ -62,6 +71,8 @@ const articleSchema = new mongoose.Schema({
   tags: String,
 });
 const Article = mongoose.model("Article", userSchema);
+
+
 
 const port = process.env.PORT || 8000;
 
