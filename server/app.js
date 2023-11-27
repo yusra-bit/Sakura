@@ -1,79 +1,8 @@
-const express = require('express');
-const session = require('express-session')
-//const app = express();
+const  express = require('express');
+const app = express();
 
-/*app.use(session({
-  secret: 'secrets',
-  cookie: {maxAge: 30000},
-  saveUninitialized: false
-}));
-*/
-
-const cors = require('cors');
-const mongoose = require('mongoose');
-const bcryptjs = require("bcryptjs");
-
-const MONGO_URI = "mongodb://localhost:27017/blogDB";
-
-// middlerware
-app.use(cors());
-app.use(express.json());
-mongoose.connect(MONGO_URI);
-const db = mongoose.connection;
-db.on("error", (err) => {
-  console.error("Mongodb connnection error", err);
-});
-db.once("open", () => {
-  console.log("Mongodb is connected");
+app.get('/', function (req, res) {
+  res.json('Hello World!');
 });
 
-const userSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    password: String,
-  });
-  const User = mongoose.model("User", userSchema);
-  app.post("/register", async (req, res) => {
-    try {
-     // const hasspassword = await bcryptjs.hashSync(req.body.password, 10);
-      const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-      });
-      const savedUser = await newUser.save();
-      res.status(201).json(savedUser);
-    } catch (error) {
-      console.error("Error during registration ", error);
-      res.status(500).json({ error: "inter server error" });
-    }
-  });
-
-
-app.post('/login', (req,res) => {
-  const {email,password} = req.body;
-  User.findOne({email:email})
-  .then(user => {
-    if(user) {
-      res.redirect('http://localhost:3000/welcome');
-       
-    } else {
-      res.json("No record existed!")
-    }
-  })
-})
-
-
-// POST SAVING //
-const articleSchema = new mongoose.Schema({
-  img: String,
-  contnet: String,
-  tags: String,
-});
-const Article = mongoose.model("Article", userSchema);
-
-
-
-const port = process.env.PORT || 8000;
-
-app.listen(port, () => console.log(`Server running on port ${port}`));
+app.listen(8000);
